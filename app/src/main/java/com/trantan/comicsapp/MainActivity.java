@@ -66,20 +66,7 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
 
     private void init(){
         listComic = new ArrayList<>();
-//        listComic.add(new Comic("Vợ Ma","Chapter 111","https://3.bp.blogspot.com/-e3H1bXiJWHM/WBNEmFJ9B-I/AAAAAAAAMd0/tKBvR0tXr6Q/vo-ma.jpg"));
-//        listComic.add(new Comic("Ubel Blatt","Chapter 167.1","https://3.bp.blogspot.com/-4lgkziTIG80/V5ZLrTlcUWI/AAAAAAAAAnk/Sw4Psj-1eQs/ubel-blatt.jpg"));
-//        listComic.add(new Comic("Luân Hồi Ác Nhân","Chapter 18","http://st.nettruyen.com/data/comics/150/luan-hoi-ac-nhan.jpg"));
-//        listComic.add(new Comic("Khu phố xa xăm","Chapter 6","http://st.nettruyen.com/data/comics/175/khu-pho-xa-xam.jpg"));
-//
-//        listComic.add(new Comic("Vợ Ma","Chapter 111","https://3.bp.blogspot.com/-e3H1bXiJWHM/WBNEmFJ9B-I/AAAAAAAAMd0/tKBvR0tXr6Q/vo-ma.jpg"));
-//        listComic.add(new Comic("Ubel Blatt","Chapter 167.1","https://3.bp.blogspot.com/-4lgkziTIG80/V5ZLrTlcUWI/AAAAAAAAAnk/Sw4Psj-1eQs/ubel-blatt.jpg"));
-//        listComic.add(new Comic("Luân Hồi Ác Nhân","Chapter 18","http://st.nettruyen.com/data/comics/150/luan-hoi-ac-nhan.jpg"));
-//        listComic.add(new Comic("Khu phố xa xăm","Chapter 6","http://st.nettruyen.com/data/comics/175/khu-pho-xa-xam.jpg"));
-//
-//        listComic.add(new Comic("Vợ Ma","Chapter 111","https://3.bp.blogspot.com/-e3H1bXiJWHM/WBNEmFJ9B-I/AAAAAAAAMd0/tKBvR0tXr6Q/vo-ma.jpg"));
-//        listComic.add(new Comic("Ubel Blatt","Chapter 167.1","https://3.bp.blogspot.com/-4lgkziTIG80/V5ZLrTlcUWI/AAAAAAAAAnk/Sw4Psj-1eQs/ubel-blatt.jpg"));
-//        listComic.add(new Comic("Luân Hồi Ác Nhân","Chapter 18","http://st.nettruyen.com/data/comics/150/luan-hoi-ac-nhan.jpg"));
-//        listComic.add(new Comic("Khu phố xa xăm","Chapter 6","http://st.nettruyen.com/data/comics/175/khu-pho-xa-xam.jpg"));
+
 
         adapter = new ComicAdapter(this,R.layout.item_comic,listComic);
     }
