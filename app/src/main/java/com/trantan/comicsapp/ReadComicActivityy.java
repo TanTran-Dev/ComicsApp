@@ -18,7 +18,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadComicActivityy extends AppCompatActivity implements GetPageComicFromAPI,View.OnClickListener {
+public class ReadComicActivityy extends AppCompatActivity implements GetPageComicFromAPI, View.OnClickListener {
     private ImageView imgImage;
     private ImageView imgLeft;
     private ImageView imgRight;
@@ -28,6 +28,7 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
     private int numPage;
     private int numPageReading;
     String idChap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.imgLeft:
                 readByPage(-1);
                 break;
@@ -74,14 +75,14 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
         }
     }
 
-    private void readByPage(int i){
+    private void readByPage(int i) {
         numPageReading = numPageReading + i;
 
-        if (numPageReading == 0){
-            numPageReading = 0;
+        if (numPageReading == 0) {
+            numPageReading = 1;
         }
 
-        if (numPageReading > numPage){
+        if (numPageReading > numPage) {
             numPageReading = numPage;
         }
 
@@ -100,7 +101,7 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
         listUrlImage = new ArrayList<>();
         try {
             JSONArray array = new JSONArray(data);
-            for (int i = 0; i < array.length() ; i++) {
+            for (int i = 0; i < array.length(); i++) {
                 listUrlImage.add(array.getString(i));
             }
 
@@ -108,7 +109,7 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
             numPage = listUrlImage.size();
 
             readByPage(0);
-        }catch (JSONException e){
+        } catch (JSONException e) {
 
         }
     }
