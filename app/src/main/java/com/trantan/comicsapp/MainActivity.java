@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
         }catch (JSONException e){
 
         }
-    }
 
+    }
     @Override
     public void error() {
         Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
