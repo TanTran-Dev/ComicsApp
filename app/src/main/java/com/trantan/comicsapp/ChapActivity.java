@@ -96,7 +96,7 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
             chapAdapter = new ChapAdapter(this,R.layout.item_chap, listChap);
             lvChap.setAdapter(chapAdapter);
         }catch (JSONException e){
-
+            e.printStackTrace();
         }
     }
 

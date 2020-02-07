@@ -79,11 +79,11 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
         numPageReading = numPageReading + i;
 
         if (numPageReading == 0) {
-            numPageReading = 1;
+            numPageReading = numPage;
         }
 
         if (numPageReading > numPage) {
-            numPageReading = numPage;
+            numPageReading = 1;
         }
 
         txtNumPage.setText(numPageReading + " / " + numPage);
@@ -110,7 +110,7 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
 
             readByPage(0);
         } catch (JSONException e) {
-
+            e.printStackTrace();
         }
     }
 

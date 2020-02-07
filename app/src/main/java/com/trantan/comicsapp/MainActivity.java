@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
             adapter = new ComicAdapter(this,R.layout.item_comic,listComic);
             gvComic.setAdapter(adapter);
         }catch (JSONException e){
-
+            e.printStackTrace();
         }
 
     }
