@@ -26,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements GetComicFromAPI, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
+public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
 
     private GridView gvComic;
     private ComicAdapter adapter;
@@ -36,16 +36,17 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
     private List<Comic> listComic;
 
     private ProgressDialog dialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         init();
         initView();
         initSetup();
         initEventClick();
-
         new APIGetComic(this).execute();
     }
 
@@ -57,47 +58,48 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
 
     }
 
-    private void initEventClick(){
+    private void initEventClick() {
         edtSearchComic.addTextChangedListener(this);
         imgMenu.setOnClickListener(this);
         imgUpdate.setOnClickListener(this);
         gvComic.setOnItemClickListener(this);
     }
 
-    private void init(){
+    private void init() {
         listComic = new ArrayList<>();
 
-
-        adapter = new ComicAdapter(this,R.layout.item_comic,listComic);
+        adapter = new ComicAdapter(this, R.layout.item_comic, listComic);
     }
 
-    private void initSetup(){
+    private void initSetup() {
         gvComic.setAdapter(adapter);
     }
 
     @Override
     public void start() {
         dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading");
         dialog.show();
     }
 
     @Override
     public void finish(String data) {
-        try{
+        try {
             listComic.clear();
             JSONArray array = new JSONArray(data);
-            for (int i = 0; i < array.length() ; i++) {
+            for (int i = 0; i < array.length(); i++) {
                 JSONObject object = array.getJSONObject(i);
                 listComic.add(new Comic(object));
             }
-            adapter = new ComicAdapter(this,R.layout.item_comic,listComic);
+            adapter = new ComicAdapter(this, R.layout.item_comic, listComic);
             gvComic.setAdapter(adapter);
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
         dialog.dismiss();
     }
+
     @Override
     public void error() {
         Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.imgMenu:
                 break;
             case R.id.imgUpdate:

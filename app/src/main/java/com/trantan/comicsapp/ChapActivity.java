@@ -51,7 +51,8 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
         initSetup();
         initEventClick();
 
-        new APIGetChap(this,comic.getmId()).execute();
+        new APIGetChap(this, comic.getmId()).execute();
+
     }
 
     private void initEventClick() {
@@ -60,7 +61,7 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
 
     private void initSetup() {
         txtTitle.setText(comic.getmNameComic());
-        Glide.with(this).load(comic.getmLinkImage()).transform(new BlurTransformation(6,2)).into(imgComic);
+        Glide.with(this).load(comic.getmLinkImage()).transform(new BlurTransformation(6, 2)).into(imgComic);
         Glide.with(this).load(comic.getmLinkImage()).into(imgProfileComic);
     }
 
@@ -78,27 +79,26 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
         listChap = new ArrayList<>();
 
 //        chapAdapter = new ChapAdapter(this, R.layout.item_chap, listChap);
-
-
     }
 
     @Override
     public void start() {
         dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading");
         dialog.show();
     }
 
     @Override
     public void finish(String data) {
-        try{
+        try {
             JSONArray array = new JSONArray(data);
-            for (int i = 0; i <array.length() ; i++) {
+            for (int i = 0; i < array.length(); i++) {
                 Chap chap = new Chap(array.getJSONObject(i));
                 listChap.add(chap);
             }
-            chapAdapter = new ChapAdapter(this,R.layout.item_chap, listChap);
+            chapAdapter = new ChapAdapter(this, R.layout.item_chap, listChap);
             lvChap.setAdapter(chapAdapter);
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         dialog.dismiss();
@@ -110,6 +110,7 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
     }
 
     int index = -1;
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         index = position;

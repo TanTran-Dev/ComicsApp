@@ -96,6 +96,7 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
     @Override
     public void start() {
         dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading");
         dialog.show();
     }
 
