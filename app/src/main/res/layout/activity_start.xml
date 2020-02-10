@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textColor="#673AB7"
+        android:textColor="#125A54"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:fontFamily="@font/font_quad"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Truyen tranh Nham Nhi"
+        android:text="@string/tittle_start"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -37,16 +37,27 @@
         android:id="@+id/btnStart"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/selector_button_start"
         android:fontFamily="@font/font_giant"
         android:onClick="onStartButton"
         android:text="Start"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Made by Tran Van Tan"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnStart"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/btnStart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
