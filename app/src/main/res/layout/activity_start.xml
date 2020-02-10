@@ -8,7 +8,7 @@
     tools:context=".StartActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
@@ -20,7 +20,7 @@
 
     <TextView
         android:textColor="#125A54"
-        android:id="@+id/textView"
+        android:id="@+id/txtTitleStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -29,9 +29,9 @@
         android:padding="5dp"
         android:text="@string/tittle_start"
         android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/imgLogo"
+        app:layout_constraintStart_toStartOf="@+id/imgLogo"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
 
     <Button
         android:id="@+id/btnStart"
@@ -44,10 +44,10 @@
         android:text="Start"
         android:textSize="35sp"
         android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/txtTitleStart"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/txtTitleStart"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitleStart" />
 
     <TextView
         android:layout_width="wrap_content"

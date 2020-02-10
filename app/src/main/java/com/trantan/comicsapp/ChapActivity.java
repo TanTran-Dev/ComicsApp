@@ -30,11 +30,12 @@ import java.util.List;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, AdapterView.OnItemClickListener {
+public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, AdapterView.OnItemClickListener, View.OnClickListener {
     private ImageView imgComic;
     private TextView txtTitle;
     private ListView lvChap;
     private ImageView imgProfileComic;
+    private ImageView imgBack;
 
     private Comic comic;
     private ChapAdapter chapAdapter;
@@ -57,6 +58,7 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
 
     private void initEventClick() {
         lvChap.setOnItemClickListener(this);
+        imgBack.setOnClickListener(this);
     }
 
     private void initSetup() {
@@ -70,6 +72,7 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
         txtTitle = findViewById(R.id.txtComicTittle);
         lvChap = findViewById(R.id.lvChaps);
         imgProfileComic = findViewById(R.id.profile_comic_image);
+        imgBack = findViewById(R.id.imgBack);
     }
 
     private void init() {
@@ -120,5 +123,14 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
         bundle.putString("idChap", listChap.get(position).getmId());
         intent.putExtra("data", bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.imgBack:
+                onBackPressed();
+                break;
+        }
     }
 }
