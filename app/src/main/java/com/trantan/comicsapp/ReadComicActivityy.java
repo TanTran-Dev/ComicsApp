@@ -2,6 +2,7 @@ package com.trantan.comicsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +29,8 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
     private int numPage;
     private int numPageReading;
     String idChap;
+
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +95,8 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
 
     @Override
     public void start() {
-
+        dialog = new ProgressDialog(this);
+        dialog.show();
     }
 
     @Override
@@ -112,6 +116,7 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        dialog.dismiss();
     }
 
     @Override

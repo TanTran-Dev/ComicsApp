@@ -2,6 +2,7 @@ package com.trantan.comicsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,7 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
     private Comic comic;
     private ChapAdapter chapAdapter;
     private List<Chap> listChap;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,8 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
 
     @Override
     public void start() {
-        Toast.makeText(this, "Crawling", Toast.LENGTH_SHORT).show();
+        dialog = new ProgressDialog(this);
+        dialog.show();
     }
 
     @Override
@@ -98,6 +101,7 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
         }catch (JSONException e){
             e.printStackTrace();
         }
+        dialog.dismiss();
     }
 
     @Override

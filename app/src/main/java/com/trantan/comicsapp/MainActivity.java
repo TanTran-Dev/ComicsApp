@@ -2,9 +2,8 @@ package com.trantan.comicsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
     private ImageView imgUpdate;
     private List<Comic> listComic;
 
+    private ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
         edtSearchComic = findViewById(R.id.edtSearchComic);
         imgMenu = findViewById(R.id.imgMenu);
         imgUpdate = findViewById(R.id.imgUpdate);
+
     }
 
     private void initEventClick(){
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
 
     @Override
     public void start() {
-        Toast.makeText(this, "crawling", Toast.LENGTH_SHORT).show();
+        dialog = new ProgressDialog(this);
+        dialog.show();
     }
 
     @Override
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements GetComicFromAPI, 
             e.printStackTrace();
         }
 
+        dialog.dismiss();
     }
     @Override
     public void error() {
