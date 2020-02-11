@@ -82,11 +82,11 @@ public class ReadComicActivityy extends AppCompatActivity implements GetPageComi
         numPageReading = numPageReading + i;
 
         if (numPageReading == 0) {
-            numPageReading = numPage;
+            numPageReading = 1;
         }
 
         if (numPageReading > numPage) {
-            numPageReading = 1;
+            numPageReading = numPage;
         }
 
         txtNumPage.setText(numPageReading + " / " + numPage);
