@@ -41,7 +41,7 @@ public class ChapAdapter extends ArrayAdapter<Chap> {
             TextView txtDate = convertView.findViewById(R.id.txtDate);
 
             txtChapName.setText(chap.getmNameChap());
-            txtDate.setText(chap.getmDate());
+            txtDate.setText("Ngày cập nhật: " +chap.getmDate());
         }
         return convertView;
     }

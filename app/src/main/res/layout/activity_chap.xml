@@ -54,6 +54,7 @@
             app:layout_constraintVertical_bias="0.312" />
 
         <TextView
+            android:fontFamily="@font/utm_conestoga"
             android:id="@+id/txtComicTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
             android:layout_margin="6dp"
             android:layout_marginTop="40dp"
             android:text="Title"
-            android:textColor="@color/text_color_comic_name"
+            android:textColor="@color/text_color_comic_name_1"
             android:textSize="28sp"
             android:textStyle="bold"
             style="@style/TextAppearance.AppCompat.Title.Inverse"

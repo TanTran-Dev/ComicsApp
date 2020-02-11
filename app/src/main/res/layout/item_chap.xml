@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal">
 
     <TextView
-        android:layout_weight="1"
-        android:gravity="center"
         android:id="@+id/txtChapName"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginStart="64dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/gelato_script"
+        android:gravity="center"
         android:text="Chap Name"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
     <TextView
         android:id="@+id/txtDate"
-        android:layout_weight="1"
-        android:layout_marginRight="20dp"
-        android:text="date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/utm_bustamalaka"
+        android:text="date"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtChapName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toEndOf="@+id/txtChapName" />
+</androidx.constraintlayout.widget.ConstraintLayout>

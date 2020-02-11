@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,8 +29,8 @@ public class StartActivity extends AppCompatActivity {
     {
         Animation a = AnimationUtils.loadAnimation(this, R.anim.text_anim);
         a.reset();
-        TextView tv = findViewById(R.id.txtTitleStart);
-        tv.clearAnimation();
-        tv.startAnimation(a);
+        Button btnStart = findViewById(R.id.btnStart);
+        btnStart.clearAnimation();
+        btnStart.startAnimation(a);
     }
 }
