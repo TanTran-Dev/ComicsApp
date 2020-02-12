@@ -1,48 +1,68 @@
 package com.trantan.comicsapp.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.trantan.comicsapp.R;
+import com.trantan.comicsapp.interfaces.RCItemClickListener;
 import com.trantan.comicsapp.model.Chap;
 
 import java.util.List;
 
-public class ChapAdapter extends ArrayAdapter<Chap> {
-    private Context context;
+public class ChapAdapter extends RecyclerView.Adapter<ChapAdapter.ChapHolder> {
     private List<Chap> listChap;
-    private int resource;
+    public RCItemClickListener itemClickListener;
 
-    public ChapAdapter(@NonNull Context context, int resource, @NonNull List<Chap> objects) {
-        super(context, resource, objects);
-        this.context = context;
-        this.resource = resource;
-        this.listChap = objects;
+    public ChapAdapter(List<Chap> listChap, RCItemClickListener itemClickListener) {
+        this.listChap = listChap;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chap, parent, false);
+    public ChapHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chap, parent, false);
+        return new ChapHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ChapHolder holder, int position) {
+        Chap chap = listChap.get(position);
+        holder.txtChapName.setText(chap.getmNameChap());
+        holder.txtDate.setText("Ngày cập nhật: " + chap.getmDate());
+    }
+
+    @Override
+    public int getItemCount() {
+        if (listChap == null) {
+            return 0;
+        }
+        return listChap.size();
+    }
+
+
+    class ChapHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView txtChapName;
+        TextView txtDate;
+
+
+        public ChapHolder(@NonNull View itemView) {
+            super(itemView);
+
+            txtChapName = itemView.findViewById(R.id.txtChapName);
+            txtDate = itemView.findViewById(R.id.txtDate);
+
+            itemView.setOnClickListener(this);
         }
 
-        if (listChap.size() > 0){
-            Chap chap = listChap.get(position);
-
-            TextView txtChapName = convertView.findViewById(R.id.txtChapName);
-            TextView txtDate = convertView.findViewById(R.id.txtDate);
-
-            txtChapName.setText(chap.getmNameChap());
-            txtDate.setText("Ngày cập nhật: " +chap.getmDate());
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onItemClick(v, getAdapterPosition());
         }
-        return convertView;
     }
 }

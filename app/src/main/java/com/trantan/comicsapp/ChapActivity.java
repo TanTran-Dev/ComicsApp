@@ -1,12 +1,13 @@
 package com.trantan.comicsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,26 +15,24 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.trantan.comicsapp.adapter.ChapAdapter;
-import com.trantan.comicsapp.adapter.ComicAdapter;
 import com.trantan.comicsapp.api.APIGetChap;
-import com.trantan.comicsapp.api.APIGetComic;
 import com.trantan.comicsapp.interfaces.GetChapFromAPI;
+import com.trantan.comicsapp.interfaces.RCItemClickListener;
 import com.trantan.comicsapp.model.Chap;
 import com.trantan.comicsapp.model.Comic;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
-public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, AdapterView.OnItemClickListener, View.OnClickListener {
+public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, View.OnClickListener, RCItemClickListener{
     private ImageView imgComic;
     private TextView txtTitle;
-    private ListView lvChap;
+    private RecyclerView rclChap;
     private ImageView imgProfileComic;
     private ImageView imgBack;
 
@@ -57,7 +56,6 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
     }
 
     private void initEventClick() {
-        lvChap.setOnItemClickListener(this);
         imgBack.setOnClickListener(this);
     }
 
@@ -70,9 +68,9 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
     private void initView() {
         imgComic = findViewById(R.id.imgComicChap);
         txtTitle = findViewById(R.id.txtComicTittle);
-        lvChap = findViewById(R.id.lvChaps);
         imgProfileComic = findViewById(R.id.profile_comic_image);
         imgBack = findViewById(R.id.imgBack);
+        rclChap = findViewById(R.id.rclChaps);
     }
 
     private void init() {
@@ -80,8 +78,6 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
         comic = (Comic) bundle.getSerializable("comic");
 
         listChap = new ArrayList<>();
-
-//        chapAdapter = new ChapAdapter(this, R.layout.item_chap, listChap);
     }
 
     @Override
@@ -99,8 +95,9 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
                 Chap chap = new Chap(array.getJSONObject(i));
                 listChap.add(chap);
             }
-            chapAdapter = new ChapAdapter(this, R.layout.item_chap, listChap);
-            lvChap.setAdapter(chapAdapter);
+            chapAdapter = new ChapAdapter(listChap, this);
+            rclChap.setLayoutManager(new LinearLayoutManager(this));
+            rclChap.setAdapter(chapAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -112,19 +109,6 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
         Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
     }
 
-    int index = -1;
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        index = position;
-        Intent intent = new Intent(parent.getContext(), ReadComicActivityy.class);
-        Bundle bundle = new Bundle();
-
-        bundle.putString("idChap", listChap.get(position).getmId());
-        intent.putExtra("data", bundle);
-        startActivity(intent);
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -132,5 +116,15 @@ public class ChapActivity extends AppCompatActivity implements GetChapFromAPI, A
                 onBackPressed();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(this, ReadComicActivityy.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putString("idChap", listChap.get(position).getmId());
+        intent.putExtra("data", bundle);
+        startActivity(intent);
     }
 }
