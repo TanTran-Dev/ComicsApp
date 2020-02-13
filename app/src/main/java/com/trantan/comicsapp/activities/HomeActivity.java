@@ -4,68 +4,51 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-
-import android.app.ProgressDialog;
-import android.content.Intent;
+import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trantan.comicsapp.R;
 import com.trantan.comicsapp.adapter.ComicAdapter;
-import com.trantan.comicsapp.api.APIGetComic;
-import com.trantan.comicsapp.interfaces.GetComicFromAPI;
+import com.trantan.comicsapp.fragments.ComicFragmentHome;
 import com.trantan.comicsapp.model.Comic;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, TextWatcher, View.OnClickListener, AdapterView.OnItemClickListener {
+public class HomeActivity extends AppCompatActivity implements TextWatcher, View.OnClickListener{
 
+    private List<Comic> listComic;
     private GridView gvComic;
     private ComicAdapter adapter;
     private EditText edtSearchComic;
     private ImageView imgMenu;
     private ImageView imgUpdate;
-    private List<Comic> listComic;
-
-    private ProgressDialog dialog;
 
     private ActionBar toolbar;
     private BottomNavigationView bottomNavigationView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         init();
         initView();
         initSetup();
         initEventClick();
-        new APIGetComic(this).execute();
 
         getSupportActionBar();
-
+        loadFragment(new ComicFragmentHome());
     }
 
     private void initView() {
-        gvComic = findViewById(R.id.gvComic);
         edtSearchComic = findViewById(R.id.edtSearchComic);
         imgMenu = findViewById(R.id.imgMenu);
         imgUpdate = findViewById(R.id.imgUpdate);
@@ -77,50 +60,14 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
         edtSearchComic.addTextChangedListener(this);
         imgMenu.setOnClickListener(this);
         imgUpdate.setOnClickListener(this);
-        gvComic.setOnItemClickListener(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         bottomNavigationView.setItemIconTintList(null);
     }
 
     private void init() {
-        listComic = new ArrayList<>();
-
-        adapter = new ComicAdapter(this, R.layout.item_comic, listComic);
-
     }
 
     private void initSetup() {
-        gvComic.setAdapter(adapter);
-    }
-
-    @Override
-    public void start() {
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Loading");
-        dialog.show();
-    }
-
-    @Override
-    public void finish(String data) {
-        try {
-            listComic.clear();
-            JSONArray array = new JSONArray(data);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject object = array.getJSONObject(i);
-                listComic.add(new Comic(object));
-            }
-            adapter = new ComicAdapter(this, R.layout.item_comic, listComic);
-            gvComic.setAdapter(adapter);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        dialog.dismiss();
-    }
-
-    @Override
-    public void error() {
-        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -145,23 +92,9 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
             case R.id.imgMenu:
                 break;
             case R.id.imgUpdate:
-                new APIGetComic(this).execute();
+                loadFragment(new ComicFragmentHome());
                 break;
         }
-    }
-
-    int index = -1;
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        index = position;
-        Comic comic = listComic.get(index);
-        Intent intent = new Intent(parent.getContext(), ChapActivity.class);
-        Bundle bundle = new Bundle();
-
-        bundle.putSerializable("comic", comic);
-        intent.putExtra("data", bundle);
-        startActivity(intent);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
@@ -172,6 +105,8 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
 
             switch (menuItem.getItemId()) {
                 case R.id.nav_home:
+                    fragment = new ComicFragmentHome();
+                    loadFragment(fragment);
                     return true;
                 case R.id.nav_saved:
                     return true;
@@ -179,4 +114,11 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
             return false;
         }
     };
+
+    private void loadFragment(Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_frame,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

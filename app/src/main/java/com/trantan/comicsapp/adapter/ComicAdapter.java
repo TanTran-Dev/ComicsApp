@@ -29,7 +29,13 @@ public class ComicAdapter extends ArrayAdapter<Comic> {
         this.listComic = objects;
     }
 
+    public void setListComic(List<Comic> listComic) {
+        this.listComic = listComic;
+    }
 
+    public List<Comic> getListComic() {
+        return listComic;
+    }
 
     @NonNull
     @Override
