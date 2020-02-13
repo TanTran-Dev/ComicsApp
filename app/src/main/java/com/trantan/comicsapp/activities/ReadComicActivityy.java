@@ -1,4 +1,4 @@
-package com.trantan.comicsapp;
+package com.trantan.comicsapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.trantan.comicsapp.R;
 import com.trantan.comicsapp.api.APIGetPageComic;
 import com.trantan.comicsapp.interfaces.GetPageComicFromAPI;
 import com.trantan.comicsapp.model.Comic;

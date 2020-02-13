@@ -7,4 +7,5 @@
     <color name="text_color_chap_name">#FFFFFF</color>
     <color name="text_color_comic_name">#000000</color>
     <color name="text_color_comic_name_1">#FFEB3B</color>
+    <color name="colorOnSurface">#FF5722</color>
 </resources>

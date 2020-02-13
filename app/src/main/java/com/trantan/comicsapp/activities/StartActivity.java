@@ -1,4 +1,4 @@
-package com.trantan.comicsapp;
+package com.trantan.comicsapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.trantan.comicsapp.R;
 
 public class StartActivity extends AppCompatActivity {
 

@@ -14,16 +14,16 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity">
+        <activity android:name=".activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReadComicActivityy" />
-        <activity android:name=".ChapActivity" />
-        <activity android:name=".HomeActivity"/>
+        <activity android:name=".activities.ReadComicActivityy" />
+        <activity android:name=".activities.ChapActivity" />
+        <activity android:name=".activities.HomeActivity"/>
     </application>
 
 </manifest>

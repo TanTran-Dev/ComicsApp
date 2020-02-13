@@ -1,12 +1,17 @@
-package com.trantan.comicsapp;
+package com.trantan.comicsapp.activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -14,6 +19,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.trantan.comicsapp.R;
 import com.trantan.comicsapp.adapter.ComicAdapter;
 import com.trantan.comicsapp.api.APIGetComic;
 import com.trantan.comicsapp.interfaces.GetComicFromAPI;
@@ -37,17 +44,24 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
 
     private ProgressDialog dialog;
 
+    private ActionBar toolbar;
+    private BottomNavigationView bottomNavigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         init();
         initView();
         initSetup();
         initEventClick();
         new APIGetComic(this).execute();
+
+        getSupportActionBar();
+
     }
 
     private void initView() {
@@ -56,6 +70,7 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
         imgMenu = findViewById(R.id.imgMenu);
         imgUpdate = findViewById(R.id.imgUpdate);
 
+        bottomNavigationView = findViewById(R.id.bottom_nav);
     }
 
     private void initEventClick() {
@@ -63,12 +78,15 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
         imgMenu.setOnClickListener(this);
         imgUpdate.setOnClickListener(this);
         gvComic.setOnItemClickListener(this);
+        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        bottomNavigationView.setItemIconTintList(null);
     }
 
     private void init() {
         listComic = new ArrayList<>();
 
         adapter = new ComicAdapter(this, R.layout.item_comic, listComic);
+
     }
 
     private void initSetup() {
@@ -145,4 +163,20 @@ public class HomeActivity extends AppCompatActivity implements GetComicFromAPI, 
         intent.putExtra("data", bundle);
         startActivity(intent);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            Fragment fragment;
+
+            switch (menuItem.getItemId()) {
+                case R.id.nav_home:
+                    return true;
+                case R.id.nav_saved:
+                    return true;
+            }
+            return false;
+        }
+    };
 }

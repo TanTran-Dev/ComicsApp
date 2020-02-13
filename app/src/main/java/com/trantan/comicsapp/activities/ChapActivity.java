@@ -1,4 +1,4 @@
-package com.trantan.comicsapp;
+package com.trantan.comicsapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,11 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.trantan.comicsapp.R;
 import com.trantan.comicsapp.adapter.ChapAdapter;
 import com.trantan.comicsapp.api.APIGetChap;
 import com.trantan.comicsapp.interfaces.GetChapFromAPI;

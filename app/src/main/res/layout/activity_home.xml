@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
+    tools:context=".activities.HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,10 +16,10 @@
 
 
         <ImageView
-            android:layout_marginLeft="6dp"
             android:id="@+id/imgMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
             android:padding="12dp"
             android:src="@drawable/menu"
             app:layout_constraintBottom_toBottomOf="@id/edtSearchComic"
@@ -27,39 +27,54 @@
             app:layout_constraintTop_toTopOf="@+id/edtSearchComic" />
 
         <EditText
-            android:textCursorDrawable="@drawable/text_cursor_color"
             android:id="@+id/edtSearchComic"
             android:layout_width="260dp"
             android:layout_height="35dp"
             android:background="@drawable/bg_edt"
             android:gravity="center"
             android:hint="Nhập tên truyện cần tìm "
-            android:textSize="14sp"
             android:textColor="@color/text_color_edit"
             android:textColorHint="#CFCFCF"
+            android:textCursorDrawable="@drawable/text_cursor_color"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imgUpdate"
             app:layout_constraintStart_toEndOf="@+id/imgMenu"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:padding="12dp"
-            android:layout_marginRight="6dp"
             android:id="@+id/imgUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
+            android:padding="12dp"
             android:src="@drawable/update"
             app:layout_constraintBottom_toBottomOf="@+id/edtSearchComic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edtSearchComic" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <GridView
-        android:id="@+id/gvComic"
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3" >
+        android:layout_height="match_parent">
 
-    </GridView>
+        <GridView
+            android:id="@+id/gvComic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_gradient_1"
+            app:itemIconTint="#FFFFFF"
+            app:itemTextColor="#FFFFFF"
+            app:menu="@menu/bottom_nav" />
+    </FrameLayout>
 </LinearLayout>
