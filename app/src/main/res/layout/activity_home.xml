@@ -8,54 +8,6 @@
     android:orientation="vertical"
     tools:context=".activities.HomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="66dp"
-        android:background="@drawable/bg_gradient_1"
-        android:gravity="center">
-
-
-        <ImageView
-            android:id="@+id/imgMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:padding="12dp"
-            android:src="@drawable/menu"
-            app:layout_constraintBottom_toBottomOf="@id/edtSearchComic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/edtSearchComic" />
-
-        <EditText
-            android:id="@+id/edtSearchComic"
-            android:layout_width="260dp"
-            android:layout_height="35dp"
-            android:background="@drawable/bg_edt"
-            android:gravity="center"
-            android:hint="Nhập tên truyện cần tìm "
-            android:textColor="@color/text_color_edit"
-            android:textColorHint="#CFCFCF"
-            android:textCursorDrawable="@drawable/text_cursor_color"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgUpdate"
-            app:layout_constraintStart_toEndOf="@+id/imgMenu"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imgUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dp"
-            android:padding="12dp"
-            android:src="@drawable/update"
-            app:layout_constraintBottom_toBottomOf="@+id/edtSearchComic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/edtSearchComic" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"

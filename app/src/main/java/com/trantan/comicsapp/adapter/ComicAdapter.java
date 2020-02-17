@@ -10,23 +10,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.trantan.comicsapp.R;
+import com.trantan.comicsapp.interfaces.RCItemClickListener;
 import com.trantan.comicsapp.model.Comic;
 
 import java.util.List;
 
-public class ComicAdapter extends ArrayAdapter<Comic> {
-    private Context context;
+public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicHolder> {
     private List<Comic> listComic;
-    private int resource;
+    private RCItemClickListener itemClickListener;
 
-    public ComicAdapter(@NonNull Context context, int resource, @NonNull List<Comic> objects) {
-        super(context, resource, objects);
-        this.context = context;
-        this.resource = resource;
-        this.listComic = objects;
+    public ComicAdapter(List<Comic> listComic, RCItemClickListener itemClickListener) {
+        this.listComic = listComic;
+        this.itemClickListener = itemClickListener;
     }
 
     public void setListComic(List<Comic> listComic) {
@@ -37,29 +36,50 @@ public class ComicAdapter extends ArrayAdapter<Comic> {
         return listComic;
     }
 
+
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_comic, null);
+    public ComicHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comic, parent, false);
+        return new ComicHolder(view);
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull ComicHolder holder, int position) {
+        Comic comic = listComic.get(position);
+        holder.txtComicName.setText(comic.getmNameComic());
+        holder.txtChapName.setText(comic.getmNameChap());
+        Glide.with(holder.itemView.getContext()).load(comic.getmLinkImage()).into(holder.imgImageComic);
+    }
+
+    @Override
+    public int getItemCount() {
+        if (listComic == null){
+            return 0;
+        }
+        return listComic.size();
+    }
+
+    class ComicHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        ImageView imgImageComic;
+        TextView txtChapName;
+        TextView txtComicName;
+
+        public ComicHolder(@NonNull View itemView) {
+            super(itemView);
+
+            imgImageComic = itemView.findViewById(R.id.imgImageComic);
+            txtComicName = itemView.findViewById(R.id.txtComicName);
+            txtChapName = itemView.findViewById(R.id.txtChapName);
+
+            itemView.setOnClickListener(this);
         }
 
-        if (listComic.size() > 0){
-            Comic comic = this.listComic.get(position);
-
-            ImageView imgImageComic = convertView.findViewById(R.id.imgImageComic);
-            TextView txtChapName = convertView.findViewById(R.id.txtChapName);
-            TextView txtComicName = convertView.findViewById(R.id.txtComicName);
-
-
-            txtComicName.setText(comic.getmNameComic());
-            txtChapName.setText(comic.getmNameChap());
-            Glide.with(this.context).load(comic.getmLinkImage()).into(imgImageComic);
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onItemClick(v,getAdapterPosition());
         }
-
-        return convertView;
     }
 
 

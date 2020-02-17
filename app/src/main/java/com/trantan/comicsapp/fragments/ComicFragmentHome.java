@@ -12,12 +12,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.trantan.comicsapp.R;
 import com.trantan.comicsapp.activities.ChapActivity;
 import com.trantan.comicsapp.adapter.ComicAdapter;
 import com.trantan.comicsapp.api.APIGetComic;
 import com.trantan.comicsapp.interfaces.GetComicFromAPI;
+import com.trantan.comicsapp.interfaces.RCItemClickListener;
 import com.trantan.comicsapp.model.Comic;
 
 import org.json.JSONArray;
@@ -27,13 +34,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComicFragmentHome extends Fragment implements GetComicFromAPI, AdapterView.OnItemClickListener {
+public class ComicFragmentHome extends Fragment implements GetComicFromAPI, RCItemClickListener, View.OnClickListener {
 
     private GridView gvComic;
+    private RecyclerView rclComic;
     private ComicAdapter adapter;
     private List<Comic> listComic;
     private ProgressDialog dialog;
-
+    private FloatingActionButton floatingActionButtonUpdate;
     public ComicAdapter getAdapter() {
         return adapter;
     }
@@ -50,18 +58,23 @@ public class ComicFragmentHome extends Fragment implements GetComicFromAPI, Adap
         this.adapter = adapter;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_comic, container, false);
 
-        gvComic = view.findViewById(R.id.gvComic);
+        rclComic = view.findViewById(R.id.rclComic);
+        floatingActionButtonUpdate = view.findViewById(R.id.floatActionUpdate);
+
 
         listComic = new ArrayList<>();
-        adapter = new ComicAdapter(getContext(), R.layout.item_comic, listComic);
-        gvComic.setAdapter(adapter);
-
-        gvComic.setOnItemClickListener(this);
+        floatingActionButtonUpdate.setOnClickListener(this);
         new APIGetComic(this).execute();
         return view;
     }
@@ -82,8 +95,9 @@ public class ComicFragmentHome extends Fragment implements GetComicFromAPI, Adap
                 JSONObject object = array.getJSONObject(i);
                 listComic.add(new Comic(object));
             }
-            adapter = new ComicAdapter(getContext(), R.layout.item_comic, listComic);
-            gvComic.setAdapter(adapter);
+            adapter = new ComicAdapter(listComic , this);
+            rclComic.setLayoutManager(new GridLayoutManager(getContext(),3));
+            rclComic.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -97,10 +111,20 @@ public class ComicFragmentHome extends Fragment implements GetComicFromAPI, Adap
     }
 
 
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.floatActionUpdate:
+                new APIGetComic(this).execute();
+                break;
+        }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
         Comic comic = listComic.get(position);
-        Intent intent = new Intent(parent.getContext(), ChapActivity.class);
+        Intent intent = new Intent(getContext(), ChapActivity.class);
         Bundle bundle = new Bundle();
 
         bundle.putSerializable("comic", comic);
