@@ -18,6 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.trantan.comicsapp.R;
 import com.trantan.comicsapp.adapter.ComicAdapter;
 import com.trantan.comicsapp.fragments.ComicFragmentHome;
+import com.trantan.comicsapp.fragments.SavedFragment;
+import com.trantan.comicsapp.fragments.SearchFragment;
 import com.trantan.comicsapp.model.Comic;
 
 import java.util.List;
@@ -108,7 +110,13 @@ public class HomeActivity extends AppCompatActivity implements TextWatcher, View
                     fragment = new ComicFragmentHome();
                     loadFragment(fragment);
                     return true;
+                case R.id.nav_search:
+                    fragment = new SearchFragment();
+                    loadFragment(fragment);
+                    return true;
                 case R.id.nav_saved:
+                    fragment = new SavedFragment();
+                    loadFragment(fragment);
                     return true;
             }
             return false;
