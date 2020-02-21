@@ -1,10 +1,12 @@
 package com.trantan.comicsapp.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.trantan.comicsapp.R;
 
@@ -40,7 +43,12 @@ public class SearchFragment extends Fragment {
         MenuItem menuItem = menu.findItem(R.id.menu_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        toolbar.setTitle("");
+
+        toolbar.setTitle("Tìm kiếm Truyện Tranh");
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        ImageView searchIcon = searchView.findViewById(androidx.appcompat.R.id.search_button);
+        searchIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_search_white_24dp));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

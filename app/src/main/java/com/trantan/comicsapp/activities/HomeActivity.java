@@ -1,17 +1,11 @@
 package com.trantan.comicsapp.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -22,19 +16,18 @@ import com.trantan.comicsapp.adapter.ComicAdapter;
 import com.trantan.comicsapp.fragments.ComicFragmentHome;
 import com.trantan.comicsapp.fragments.SavedFragment;
 import com.trantan.comicsapp.fragments.SearchFragment;
-import com.trantan.comicsapp.interfaces.OnBackPressedListener;
 import com.trantan.comicsapp.model.Comic;
 
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity{
 
-    private List<Comic> listComic;
-    private GridView gvComic;
-    private ComicAdapter adapter;
-    private EditText edtSearchComic;
-    private ImageView imgMenu;
-    private ImageView imgUpdate;
+//    private List<Comic> listComic;
+//    private GridView gvComic;
+//    private ComicAdapter adapter;
+//    private EditText edtSearchComic;
+//    private ImageView imgMenu;
+//    private ImageView imgUpdate;
 
     private BottomNavigationView bottomNavigationView;
 

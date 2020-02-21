@@ -6,15 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,12 +32,13 @@ import java.util.List;
 
 public class ComicFragmentHome extends Fragment implements GetComicFromAPI, RCItemClickListener, View.OnClickListener {
 
-    private GridView gvComic;
     private RecyclerView rclComic;
     private ComicAdapter adapter;
     private List<Comic> listComic;
     private ProgressDialog dialog;
     private FloatingActionButton floatingActionButtonUpdate;
+
+    private boolean isLoaded = false;
     public ComicAdapter getAdapter() {
         return adapter;
     }
@@ -58,12 +55,6 @@ public class ComicFragmentHome extends Fragment implements GetComicFromAPI, RCIt
         this.adapter = adapter;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,36 +63,37 @@ public class ComicFragmentHome extends Fragment implements GetComicFromAPI, RCIt
         rclComic = view.findViewById(R.id.rclComic);
         floatingActionButtonUpdate = view.findViewById(R.id.floatActionUpdate);
 
-
         listComic = new ArrayList<>();
         floatingActionButtonUpdate.setOnClickListener(this);
+
         new APIGetComic(this).execute();
+
         return view;
     }
 
     @Override
     public void start() {
-        dialog = new ProgressDialog(getContext());
-        dialog.setMessage("Loading");
-        dialog.show();
+            dialog = new ProgressDialog(getContext());
+            dialog.setMessage("Loading");
+            dialog.show();
     }
 
     @Override
     public void finish(String data) {
-        try {
-            listComic.clear();
-            JSONArray array = new JSONArray(data);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject object = array.getJSONObject(i);
-                listComic.add(new Comic(object));
-            }
-            adapter = new ComicAdapter(listComic , this);
-            rclComic.setLayoutManager(new GridLayoutManager(getContext(),3));
-            rclComic.setAdapter(adapter);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            try {
+                listComic.clear();
+                JSONArray array = new JSONArray(data);
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object = array.getJSONObject(i);
+                    listComic.add(new Comic(object));
+                }
+                adapter = new ComicAdapter(listComic , this);
+                rclComic.setLayoutManager(new GridLayoutManager(getContext(),3));
+                rclComic.setAdapter(adapter);
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         dialog.dismiss();
     }
 
